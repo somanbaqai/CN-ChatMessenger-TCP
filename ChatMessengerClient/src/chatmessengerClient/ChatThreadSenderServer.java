@@ -5,7 +5,7 @@
  */
 package chatmessengerClient;
 
-import ThreadFiles.*;
+
 import java.io.DataInputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
@@ -34,7 +34,7 @@ public class ChatThreadSenderServer implements Runnable {
 
     public ChatThreadSenderServer(String conn,Socket socket) {
         this.conn = conn;
-        this.socket = socket;
+        this.socket = MainController.socket;
     }
 
    
@@ -62,6 +62,7 @@ public class ChatThreadSenderServer implements Runnable {
             }
 
         } catch (Exception e) {
+            System.out.println("sender");
             System.out.println(e);
         }
     }

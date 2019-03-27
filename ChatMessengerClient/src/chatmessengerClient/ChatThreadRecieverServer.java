@@ -5,11 +5,12 @@
  */
 package chatmessengerClient;
 
-import ThreadFiles.*;
+
 import java.io.DataInputStream;
 import java.net.ServerSocket;
 
 import java.net.Socket;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -20,15 +21,17 @@ public class ChatThreadRecieverServer implements Runnable {
     String conn;
     int port;
     Socket socket;
+    ObservableList<String> chatMessages;
 
     public ChatThreadRecieverServer(String conn) {
         this.conn = conn;
     }
 
-    public ChatThreadRecieverServer(String conn, int port, Socket socket) {
+    public ChatThreadRecieverServer(String conn, int port, Socket socket,ObservableList<String> chatMessages) {
         this.conn = conn;
         this.port = port;
-        this.socket = socket;
+        this.socket = MainController.socket;
+        this.chatMessages = chatMessages;
     }
 
     public ChatThreadRecieverServer() {
@@ -43,6 +46,7 @@ public class ChatThreadRecieverServer implements Runnable {
             while (true) {
                 String strRec = dataInputStreamRec.readLine();
                 System.out.println("Message Recived at " + conn + " is: " + strRec);
+                this.chatMessages.add("Server: " + strRec);
 
                 if (strRec.equalsIgnoreCase("exit")) {
                     socket.close();
@@ -52,6 +56,7 @@ public class ChatThreadRecieverServer implements Runnable {
             }
 
         } catch (Exception e) {
+            System.out.println("reciever");
             System.out.println(e);
         }
     }

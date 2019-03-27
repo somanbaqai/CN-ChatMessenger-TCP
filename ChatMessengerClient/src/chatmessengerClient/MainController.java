@@ -38,7 +38,8 @@ public class MainController implements Initializable {
     @FXML
     private Label connectionLabel;
     public static int port;
-    public static Socket socket=null;
+    public static Socket socket = null;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -49,40 +50,28 @@ public class MainController implements Initializable {
         ip = IpField.getText();
 
         connectionLabel.setText(ip);
-        Socket soc=null;
-         try {
-            soc = new Socket("localhost", 8001);
-        } catch (IOException ex) {
-            System.out.println("port number" + ex);
-        }
-      ((Stage) IpField.getScene().getWindow()).close();
+        try {
+            port = Integer.parseInt(portField.getText());
+            System.out.println(port);
+            try {
+                socket = new Socket("localhost", 8001);
+                System.out.println("socket established");
+                ((Stage) IpField.getScene().getWindow()).close();
                 Parent parent = FXMLLoader.load(getClass().getResource("MainChat.fxml"));
                 Stage stage = new Stage();
                 stage.setTitle("Home - Chat Messenger");
                 stage.setScene(new Scene(parent));
                 stage.show();
-//        try {
-//        port = Integer.parseInt(portField.getText());
-//            System.out.println(port);
-//            try {
-//                 socket = new Socket("localhost", 1234);
-//                System.out.println("socket established");
-//                ((Stage) IpField.getScene().getWindow()).close();
-//                Parent parent = FXMLLoader.load(getClass().getResource("MainChat.fxml"));
-//                Stage stage = new Stage();
-//                stage.setTitle("Home - Chat Messenger");
-//                stage.setScene(new Scene(parent));
-//                stage.show();
-//            } catch (IOException ex) {
-//                connectionLabel.setText("Port Connection failed");
-//                System.out.println("socket connection failed");
-//            }
-//
-//        System.out.println("Changing scene to main menu");
-//        } catch (NumberFormatException nfe) {
-//            connectionLabel.setText("Port Connection failed");
-//            System.out.println(nfe);
-//        }
+            } catch (IOException ex) {
+                connectionLabel.setText("Port Connection failed");
+                System.out.println("socket connection failed");
+            }
+
+            System.out.println("Changing scene to main menu");
+        } catch (NumberFormatException nfe) {
+            connectionLabel.setText("Port Connection failed");
+            System.out.println(nfe);
+        }
 
     }
 

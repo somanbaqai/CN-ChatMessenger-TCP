@@ -24,11 +24,11 @@ import javafx.scene.control.TextField;
  *
  * @author somanbaqai
  */
-public class MainChatController implements Initializable {
+public class MainChatController implements Initializable{
 
     @FXML
     private ListView <String> chatMessageList;
-    ObservableList<String> chatMessages = FXCollections.observableArrayList();
+    public static ObservableList<String> chatMessages = FXCollections.observableArrayList();
     @FXML
     private Button sendButton;
     @FXML
@@ -39,17 +39,19 @@ public class MainChatController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Thread recieverThread = new Thread(new ChatThreadRecieverServer("Client",MainController.port,MainController.socket));
+        Thread recieverThread = new Thread(new ChatThreadRecieverServer("Client",MainController.port,MainController.socket,chatMessages));
         recieverThread.start();
         Thread senderThread = new Thread(new ChatThreadSenderServer("Client",MainController.socket));
         senderThread.start();
         chatMessageList.setItems(chatMessages);
+        
         
     }    
 
     @FXML
     private void handleSendButton(ActionEvent event) {
         chatMessages.add("User 1: " + messagaeField.getText());
+        
     }
     
 }
