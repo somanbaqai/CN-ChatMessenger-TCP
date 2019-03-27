@@ -42,13 +42,12 @@ public class ChatThreadRecieverServer implements Runnable {
             
              DataInputStream dataInputStreamRec = new DataInputStream(socket.getInputStream());
              DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-             PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
             while (true) {
                 String strRec = dataInputStreamRec.readLine();
 //                strRec += " || " +  dataInputStreamRec.readUTF();
                 System.out.println("Message Recived at " + conn + " is: " + strRec);
-                System.out.print("Message Recived at out " + conn + " is: ");
-                out.flush();
+//                System.out.print("Message Recived at out " + conn + " is: ");
+
 
                 if (strRec.equalsIgnoreCase("exit")) {
                     socket.close();

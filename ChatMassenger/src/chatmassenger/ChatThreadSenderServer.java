@@ -57,9 +57,10 @@ public class ChatThreadSenderServer implements Runnable {
                 System.out.print("Enter msg from " + conn + ": ");
                 
                 String strRec = dataInputStreamSen.readLine();
+               //  out.writeUTF(strRec + "\n");
                 if(!strRec.isEmpty()){
                     printStream.println(strRec);
-                    out.writeBytes(strRec + "\n");
+                   
                     
                 }
 
