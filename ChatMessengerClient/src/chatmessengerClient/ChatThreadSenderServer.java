@@ -7,6 +7,7 @@ package chatmessengerClient;
 
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -46,6 +47,7 @@ public class ChatThreadSenderServer implements Runnable {
            // System.out.println( conn + " connection established");
 
             DataInputStream dataInputStreamSen = new DataInputStream(System.in);
+            DataOutputStream os = new DataOutputStream(socket.getOutputStream());
             PrintStream printStream = new PrintStream(socket.getOutputStream());
             while (true) {
                 System.out.print("Enter msg from " + conn + ": ");
@@ -53,6 +55,7 @@ public class ChatThreadSenderServer implements Runnable {
                 String strRec = dataInputStreamSen.readLine();
                 if(!strRec.isEmpty()){
                     printStream.println(strRec);
+                    os.writeUTF("test");
                 }
 
                 if (strRec.equalsIgnoreCase("exit")) {

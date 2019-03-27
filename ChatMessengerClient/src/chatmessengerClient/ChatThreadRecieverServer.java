@@ -45,6 +45,7 @@ public class ChatThreadRecieverServer implements Runnable {
              DataInputStream dataInputStreamRec = new DataInputStream(socket.getInputStream());
             while (true) {
                 String strRec = dataInputStreamRec.readLine();
+                
                 System.out.println("Message Recived at " + conn + " is: " + strRec);
                 this.chatMessages.add("Server: " + strRec);
 

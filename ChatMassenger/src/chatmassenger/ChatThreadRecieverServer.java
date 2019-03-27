@@ -6,6 +6,8 @@
 package chatmassenger;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 
 import java.net.Socket;
@@ -39,9 +41,14 @@ public class ChatThreadRecieverServer implements Runnable {
             //   System.out.println(conn + " connection established");
             
              DataInputStream dataInputStreamRec = new DataInputStream(socket.getInputStream());
+             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+             PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
             while (true) {
                 String strRec = dataInputStreamRec.readLine();
+//                strRec += " || " +  dataInputStreamRec.readUTF();
                 System.out.println("Message Recived at " + conn + " is: " + strRec);
+                System.out.print("Message Recived at out " + conn + " is: ");
+                out.flush();
 
                 if (strRec.equalsIgnoreCase("exit")) {
                     socket.close();
