@@ -33,6 +33,8 @@ public class MainChatController implements Initializable{
     private Button sendButton;
     @FXML
     private TextField messagaeField;
+    
+    public static String txt;
     /**
      * Initializes the controller class.
      */
@@ -41,7 +43,7 @@ public class MainChatController implements Initializable{
         // TODO
         Thread recieverThread = new Thread(new ChatThreadRecieverServer("Client",MainController.port,MainController.socket,chatMessages));
         recieverThread.start();
-        Thread senderThread = new Thread(new ChatThreadSenderServer("Client",MainController.socket,chatMessages));
+        Thread senderThread = new Thread(new ChatThreadSenderServer("Client",MainController.socket,chatMessages,txt));
         senderThread.start();
         chatMessageList.setItems(chatMessages);
         
@@ -50,8 +52,11 @@ public class MainChatController implements Initializable{
 
     @FXML
     private void handleSendButton(ActionEvent event) {
-        chatMessages.add("User 1: " + messagaeField.getText());
-        System.out.println("test " + chatMessages.get(chatMessages.size()-1));
+        txt = messagaeField.getText();
+        ChatThreadSenderServer.setTXT(messagaeField.getText());
+        chatMessages.add("Client: " + messagaeField.getText());
+        messagaeField.setText("");
+       // System.out.println("test " + chatMessages.get(chatMessages.size()-1));
         
     }
     

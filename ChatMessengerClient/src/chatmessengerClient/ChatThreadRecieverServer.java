@@ -7,8 +7,7 @@ package chatmessengerClient;
 
 
 import java.io.DataInputStream;
-import java.net.ServerSocket;
-
+import java.io.DataOutputStream;
 import java.net.Socket;
 import javafx.collections.ObservableList;
 

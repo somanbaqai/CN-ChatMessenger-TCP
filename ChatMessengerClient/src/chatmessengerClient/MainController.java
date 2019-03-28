@@ -43,23 +43,24 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        IpField.setText("localhost");
     }
 
     @FXML
     private void handleConnectAction(ActionEvent event) throws IOException, InterruptedException {
-        ip = IpField.getText();
+        ip = IpField.getText().trim();
 
         connectionLabel.setText(ip);
         try {
             port = Integer.parseInt(portField.getText());
             System.out.println(port);
             try {
-                socket = new Socket("localhost", 8001);
+                socket = new Socket(ip, port);
                 System.out.println("socket established");
                 ((Stage) IpField.getScene().getWindow()).close();
                 Parent parent = FXMLLoader.load(getClass().getResource("MainChat.fxml"));
                 Stage stage = new Stage();
-                stage.setTitle("Home - Chat Messenger");
+                stage.setTitle("Home - Chat Messenger Client");
                 stage.setScene(new Scene(parent));
                 stage.show();
             } catch (IOException ex) {
